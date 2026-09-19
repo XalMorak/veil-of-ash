@@ -10,6 +10,7 @@ signal souls_dropped(world_pos: Vector3, amount: int)
 var selected_character_id: String = "ash_warden"
 var souls: int = 0
 var last_bonfire: String = "hub_hearth"
+var last_scene: String = "res://scenes/world/hub.tscn"
 var dropped_souls: int = 0
 var dropped_souls_pos: Vector3 = Vector3.ZERO
 var has_dropped_souls: bool = false
@@ -59,5 +60,11 @@ func rest_at(bonfire_id: String) -> void:
 	last_bonfire = bonfire_id
 	bonfire_rested.emit(bonfire_id)
 
+func mark_scene(path: String) -> void:
+	last_scene = path
+
 func enter_hub() -> void:
 	get_tree().change_scene_to_file(HUB_PATH)
+
+func respawn() -> void:
+	get_tree().change_scene_to_file(last_scene if last_scene != "" else HUB_PATH)

@@ -22,6 +22,8 @@ var _action_lock: float = 0.0
 var _move_input: Vector2 = Vector2.ZERO
 var _blocking: bool = false
 var _mouse_captured: bool = true
+var _light_cost: float = 18.0
+var _heavy_cost: float = 36.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -32,6 +34,13 @@ func _ready() -> void:
 	vitality.max_hp = data.hp
 	vitality.max_stamina = data.stamina
 	vitality.max_poise = data.poise
+	var w := WeaponDB.for_character(data.starting_weapon)
+	light_hitbox.damage = float(w.get("light", 110))
+	light_hitbox.poise_damage = float(w.get("poise_light", 18))
+	heavy_hitbox.damage = float(w.get("heavy", 175))
+	heavy_hitbox.poise_damage = float(w.get("poise_heavy", 36))
+	_light_cost = float(w.get("stamina_light", 18))
+	_heavy_cost = float(w.get("stamina_heavy", 34))
 	vitality.rest_full()
 	vitality.died.connect(_on_died)
 	vitality.poise_broken.connect(_on_poise_broken)
@@ -39,8 +48,6 @@ func _ready() -> void:
 	hurtbox.hit_received.connect(_on_hit)
 	light_hitbox.owner_group = "player"
 	heavy_hitbox.owner_group = "player"
-	heavy_hitbox.damage = 180.0
-	heavy_hitbox.poise_damage = 42.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and _mouse_captured and not lock_system.has_target():
@@ -98,9 +105,9 @@ func _handle_actions() -> void:
 	if Input.is_action_just_pressed("dodge"):
 		_try_dodge()
 	elif Input.is_action_just_pressed("light_attack"):
-		_try_attack(light_hitbox, 0.42, 18.0)
+		_try_attack(light_hitbox, 0.42, _light_cost)
 	elif Input.is_action_just_pressed("heavy_attack"):
-		_try_attack(heavy_hitbox, 0.78, 36.0)
+		_try_attack(heavy_hitbox, 0.78, _heavy_cost)
 	elif Input.is_action_just_pressed("lock_on"):
 		lock_system.toggle()
 
@@ -142,4 +149,4 @@ func _on_died() -> void:
 	Game.drop_souls_at(global_position)
 	Game.player_died.emit()
 	await get_tree().create_timer(1.6).timeout
-	Game.enter_hub()
+	Game.respawn()

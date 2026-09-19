@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://gate001"]
+
+[ext_resource type="Script" path="res://scripts/world/world_gate.gd" id="1_g"]
+
+[sub_resource type="BoxShape3D" id="Box1"]
+size = Vector3(4, 4, 2)
+
+[node name="Gate" type="Area3D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("Box1")
+
+[node name="ArchL" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 2, 0)
+size = Vector3(0.4, 4, 0.4)
+
+[node name="ArchR" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 2, 0)
+size = Vector3(0.4, 4, 0.4)
+
+[node name="Lintel" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1, 0)
+size = Vector3(4, 0.35, 0.45)

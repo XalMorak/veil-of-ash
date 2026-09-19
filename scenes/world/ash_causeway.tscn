@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://cause001"]
+
+[ext_resource type="Script" path="res://scripts/world/ash_causeway.gd" id="1_ac"]
+[ext_resource type="PackedScene" path="res://scenes/world/bonfire.tscn" id="2_bf"]
+[ext_resource type="PackedScene" uid="uid://gate001" path="res://scenes/world/gate.tscn" id="3_g"]
+
+[sub_resource type="Environment" id="Env1"]
+background_mode = 1
+background_color = Color(0.03, 0.028, 0.03, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.18, 0.14, 0.12, 1)
+ambient_light_energy = 0.4
+tonemap_mode = 2
+
+[node name="AshCauseway" type="Node3D"]
+script = ExtResource("1_ac")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8, -0.4, 0.45, 0, 0.75, 0.66, -0.6, -0.53, 0.6, 0, 20, 10)
+light_color = Color(1, 0.72, 0.5, 1)
+light_energy = 0.85
+shadow_enabled = true
+
+[node name="Floor0" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(28, 1, 24)
+
+[node name="Ramp1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.92, -0.39, 0, 0.39, 0.92, 0, 2, -16)
+use_collision = true
+size = Vector3(8, 1, 16)
+
+[node name="Floor1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -30)
+use_collision = true
+size = Vector3(22, 1, 18)
+
+[node name="Floor2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, -56)
+use_collision = true
+size = Vector3(26, 1, 22)
+
+[node name="Bridge" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -42)
+use_collision = true
+size = Vector3(4, 0.6, 10)
+
+[node name="PillarL" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, -30)
+use_collision = true
+size = Vector3(2, 8, 2)
+
+[node name="PillarR" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, -30)
+use_collision = true
+size = Vector3(2, 8, 2)
+
+[node name="Bonfire" parent="." instance=ExtResource("2_bf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.05, 4)
+bonfire_id = "causeway_ash"
+display_name = "Ash Causeway"
+
+[node name="Spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6)
+
+[node name="BackGate" parent="." instance=ExtResource("3_g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+target_scene = "res://scenes/world/hub.tscn"

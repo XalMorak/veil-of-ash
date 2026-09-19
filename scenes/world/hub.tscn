@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hub001"]
+[gd_scene load_steps=4 format=3 uid="uid://hub001"]
 
 [ext_resource type="Script" path="res://scripts/world/hub.gd" id="1_hub"]
 [ext_resource type="PackedScene" path="res://scenes/world/bonfire.tscn" id="2_bf"]
+[ext_resource type="PackedScene" path="res://scenes/world/gate.tscn" id="3_g"]
 
 [sub_resource type="Environment" id="Env1"]
 background_mode = 1
@@ -43,3 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="Spawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 6)
+
+[node name="ToCauseway" parent="." instance=ExtResource("3_g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
+target_scene = "res://scenes/world/ash_causeway.tscn"
