@@ -15,6 +15,8 @@ var _already_hit: Array[Hurtbox] = []
 func _ready() -> void:
 	monitoring = false
 	monitorable = false
+	collision_layer = 8
+	collision_mask = 16
 	area_entered.connect(_on_area_entered)
 
 func activate() -> void:

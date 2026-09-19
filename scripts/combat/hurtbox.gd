@@ -9,6 +9,8 @@ var invulnerable: bool = false
 func _ready() -> void:
 	monitoring = false
 	monitorable = true
+	collision_layer = 16
+	collision_mask = 0
 
 func receive_hit(hitbox: Hitbox) -> void:
 	if invulnerable:

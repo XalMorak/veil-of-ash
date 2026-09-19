@@ -10,6 +10,9 @@ func toggle() -> void:
 	else:
 		acquire()
 
+func has_target() -> bool:
+	return target != null and is_instance_valid(target)
+
 func acquire() -> void:
 	var best: Node3D = null
 	var best_d := max_distance
