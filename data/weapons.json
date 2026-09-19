@@ -1,0 +1,56 @@
+{
+  "weapons": [
+    {
+      "id": "ashen_longsword",
+      "name": "Ashen Longsword",
+      "class": "straight_sword",
+      "light": 110,
+      "heavy": 175,
+      "poise_light": 18,
+      "poise_heavy": 36,
+      "stamina_light": 18,
+      "stamina_heavy": 34,
+      "str_req": 12,
+      "dex_req": 10
+    },
+    {
+      "id": "twin_veil_blades",
+      "name": "Twin Veil Blades",
+      "class": "dual",
+      "light": 88,
+      "heavy": 140,
+      "poise_light": 10,
+      "poise_heavy": 22,
+      "stamina_light": 12,
+      "stamina_heavy": 24,
+      "str_req": 8,
+      "dex_req": 16
+    },
+    {
+      "id": "ember_staff",
+      "name": "Ember Staff",
+      "class": "catalyst",
+      "light": 70,
+      "heavy": 160,
+      "poise_light": 8,
+      "poise_heavy": 20,
+      "stamina_light": 16,
+      "stamina_heavy": 38,
+      "str_req": 6,
+      "dex_req": 8
+    },
+    {
+      "id": "penance_greatmace",
+      "name": "Penance Greatmace",
+      "class": "ultra",
+      "light": 160,
+      "heavy": 260,
+      "poise_light": 40,
+      "poise_heavy": 78,
+      "stamina_light": 28,
+      "stamina_heavy": 52,
+      "str_req": 20,
+      "dex_req": 8
+    }
+  ]
+}
