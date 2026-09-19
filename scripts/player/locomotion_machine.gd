@@ -1,12 +1,14 @@
 class_name LocomotionMachine
 extends Node
-## 8-way locomotion stub. Swap mesh_root animations when a real AnimationTree arrives.
+## 8-way / action states. AnimDriver maps these to Mixamo clip names.
 
-enum State { IDLE, WALK, RUN, DODGE, ATTACK, BLOCK, HIT }
+enum State { IDLE, WALK, RUN, DODGE, ATTACK, BLOCK, HIT, DEATH }
 
 var state: State = State.IDLE
 
 func update_move(planar_speed: float, dodging: bool, acting: bool, blocking: bool) -> void:
+	if state == State.DEATH:
+		return
 	if dodging:
 		state = State.DODGE
 	elif acting:
@@ -19,6 +21,13 @@ func update_move(planar_speed: float, dodging: bool, acting: bool, blocking: boo
 		state = State.WALK
 	else:
 		state = State.IDLE
+
+func hit() -> void:
+	if state != State.DEATH:
+		state = State.HIT
+
+func die() -> void:
+	state = State.DEATH
 
 func state_name() -> String:
 	return State.keys()[state]

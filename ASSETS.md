@@ -1,16 +1,25 @@
-# Asset pipeline (next art pass)
+# Mixamo → Veil of Ash
 
-Systems are in. Art is intentionally primitive so git stays text-only.
+`AnimDriver` looks for an `AnimationPlayer` under the player and plays these exact clip names:
 
-## Recommended import
-1. Mixamo: Y-Bot + Idle / Walk / Run / Jump / Sword Slash / Great Sword Slash / Hit / Death
-2. Export FBX, Godot Import as AnimationLibrary
-3. Replace `MeshRoot` CSG with `PackedScene` of the rig
-4. Hook `LocomotionMachine.state` to AnimationTree blend space 2D + OneShot attack/dodge
+| State | Clip |
+| --- | --- |
+| idle | `idle` |
+| walk | `walk` |
+| run | `run` |
+| dodge | `dodge` |
+| light attack | `attack_light` |
+| heavy attack | `attack_heavy` |
+| block | `block` |
+| hit | `hit` |
+| death | `death` |
 
-## Naming contract
-```
-idle, walk, run, dodge, attack_light, attack_heavy, block, hit, death, boss_slam
-```
+## Import steps
+1. mixamo.com → Y Bot (or any same-skeleton pack)
+2. Download each take as FBX, *without skin* after the first (first = with skin)
+3. Drop into `res://assets/mixamo/`
+4. Godot Import dock → Animation Library. Rename clips to the table above.
+5. Instance the `.glb` under `Player/MeshRoot`. Hide or delete the CSG Body/Head.
+6. Ensure the scene has `AnimationPlayer`. `AnimDriver` finds it automatically.
 
-Do not commit multi-hundred-MB `.glb` until the slice is locked.
+No clips yet = CSG capsule still renders. Driver silently no-ops missing names.
