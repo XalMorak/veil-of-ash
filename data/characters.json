@@ -1,0 +1,99 @@
+{
+  "playable": [
+    {
+      "id": "ash_warden",
+      "name": "Ash Warden",
+      "archetype": "balanced",
+      "hp": 1200,
+      "stamina": 120,
+      "poise": 80,
+      "equip_load": 40,
+      "strength": 16,
+      "dexterity": 14,
+      "mind": 10,
+      "starting_weapon": "ashen_longsword",
+      "lore": "Oathbound remnant who tends the last bonfire of the Veil."
+    },
+    {
+      "id": "veil_dancer",
+      "name": "Veil Dancer",
+      "archetype": "dexterity",
+      "hp": 900,
+      "stamina": 140,
+      "poise": 45,
+      "equip_load": 28,
+      "strength": 10,
+      "dexterity": 20,
+      "mind": 12,
+      "starting_weapon": "twin_veil_blades",
+      "lore": "Moves between folds of ash; strikes before the eye can follow."
+    },
+    {
+      "id": "cinder_priest",
+      "name": "Cinder Priest",
+      "archetype": "caster",
+      "hp": 850,
+      "stamina": 100,
+      "poise": 40,
+      "equip_load": 26,
+      "strength": 8,
+      "dexterity": 12,
+      "mind": 22,
+      "starting_weapon": "ember_staff",
+      "lore": "Keeps dying coals alive with forbidden liturgy."
+    },
+    {
+      "id": "iron_penitent",
+      "name": "Iron Penitent",
+      "archetype": "tank",
+      "hp": 1600,
+      "stamina": 100,
+      "poise": 140,
+      "equip_load": 60,
+      "strength": 22,
+      "dexterity": 8,
+      "mind": 8,
+      "starting_weapon": "penance_greatmace",
+      "lore": "Walks in plate that never cools. Pain is the prayer."
+    }
+  ],
+  "enemies": [
+    {
+      "id": "ash_hollow",
+      "name": "Ash Hollow",
+      "tier": "fodder",
+      "hp": 280,
+      "poise": 30,
+      "damage": 90,
+      "ai": "aggressive_melee"
+    },
+    {
+      "id": "veil_knight",
+      "name": "Veil Knight",
+      "tier": "elite",
+      "hp": 1400,
+      "poise": 110,
+      "damage": 180,
+      "ai": "humanoid_duelist"
+    },
+    {
+      "id": "cinder_behemoth",
+      "name": "Cinder Behemoth",
+      "tier": "mini_boss",
+      "hp": 4200,
+      "poise": 260,
+      "damage": 240,
+      "ai": "heavy_area"
+    },
+    {
+      "id": "the_first_ember",
+      "name": "The First Ember",
+      "tier": "lord",
+      "hp": 9800,
+      "poise": 400,
+      "damage": 320,
+      "ai": "phase_lord",
+      "phases": 3
+    }
+  ]
+}
