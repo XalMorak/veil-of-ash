@@ -8,6 +8,7 @@ const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 @onready var spawn: Marker3D = $Spawn
 
 func _ready() -> void:
+	Game.mark_scene("res://scenes/world/hub.tscn")
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
