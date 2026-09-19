@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://player001"]
+
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_pc"]
+[ext_resource type="Script" path="res://scripts/combat/vitality.gd" id="2_vit"]
+[ext_resource type="Script" path="res://scripts/player/lock_on_system.gd" id="3_lock"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="4_hit"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="5_hurt"]
+[ext_resource type="Script" path="res://scripts/player/locomotion_machine.gd" id="6_loco"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2"]
+radius = 0.4
+height = 1.85
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 0.7
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_pc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="MeshRoot" type="Node3D" parent="."]
+
+[node name="Body" type="CSGCylinder3D" parent="MeshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+radius = 0.32
+height = 1.4
+
+[node name="Head" type="CSGSphere3D" parent="MeshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72, 0)
+radius = 0.22
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.94, 0.342, 0, -0.342, 0.94, 0, 0, 0)
+spring_length = 4.2
+margin = 0.2
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+current = true
+fov = 70.0
+
+[node name="Vitality" type="Node" parent="."]
+script = ExtResource("2_vit")
+
+[node name="LockOnSystem" type="Node3D" parent="."]
+script = ExtResource("3_lock")
+
+[node name="LocomotionMachine" type="Node" parent="."]
+script = ExtResource("6_loco")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_hurt")
+owner_group = "player"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_2")
+
+[node name="Hitboxes" type="Node3D" parent="."]
+
+[node name="Light" type="Area3D" parent="Hitboxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.1)
+collision_layer = 8
+collision_mask = 16
+monitoring = false
+script = ExtResource("4_hit")
+owner_group = "player"
+damage = 110.0
+poise_damage = 18.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Light"]
+shape = SubResource("SphereShape3D_1")
+
+[node name="Heavy" type="Area3D" parent="Hitboxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.25)
+collision_layer = 8
+collision_mask = 16
+monitoring = false
+script = ExtResource("4_hit")
+owner_group = "player"
+damage = 180.0
+poise_damage = 42.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Heavy"]
+shape = SubResource("SphereShape3D_1")

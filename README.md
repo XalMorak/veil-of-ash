@@ -1,60 +1,50 @@
 # Veil of Ash
 
-**3D souls-like action RPG** — олон дүр, stamina/poise тулаан, lock-on, холбоотой ертөнц.
+**3D souls-like action RPG** — 4 playable remnants, stamina/poise combat, lock-on, bonfire, soul retrieve.
 
-High-ambition Godot 4 foundation. Not a prototype folder: combat rules, roster data, and scene architecture are already in place.
+Repo: https://github.com/XalMorak/veil-of-ash
 
-## Status
+## Play (v0.2)
 
-`v0.1.0` — engine skeleton. Playable loop comes next (locomotion polish → elite AI → first map slice).
+1. Install [Godot 4.3+](https://godotengine.org/download)
+2. Clone this repo and open the folder as a project
+3. F5 — character select → hub
 
-## Why Godot 4
+### Loop that works now
+- Pick Ash Warden / Veil Dancer / Cinder Priest / Iron Penitent
+- Spring-arm camera, WASD, mouse look, MMB lock-on
+- Light / heavy hitboxes spend stamina
+- Dodge has 0.28s i-frames
+- Block reduces damage if stamina remains
+- 3 Ash Hollow + 1 Veil Knight in the hub
+- Kill → souls. Die → souls drop at corpse. Touch the blue gem to retrieve. Die again first → lost.
+- Walk to the ember pit, press E — full rest
 
-- Forward+ renderer + Jolt physics
-- Entire project is text + git-friendly
-- No engine tax, no revenue cliff
-- Fits a solo / small-team souls-like better than a 100GB Unreal tree on day one
-
-Target later: Steam + native. Web export is possible but not the fidelity target.
-
-## Repo layout
-
-```
-data/characters.json          4 playable + enemy ladder
-scripts/combat/               hitbox, hurtbox, vitality, defs
-scripts/player/               controller + lock-on
-scripts/enemies/              base AI
-scripts/characters/           roster loader
-scenes/world/hub.tscn         first space
-DESIGN.md                     pillars (read this before adding systems)
-```
-
-## Controls (planned)
-
+### Controls
 | Action | Input |
 | --- | --- |
 | Move | WASD |
+| Look | Mouse |
 | Light / Heavy | LMB / RMB |
-| Dodge (i-frame) | Space |
+| Dodge | Space |
 | Block | Shift |
 | Lock-on | MMB |
-| Interact / Bonfire | E |
+| Bonfire | E |
+| Free cursor | Esc |
 
-## Run locally
+## What this is / is not
+This is a **playable systems vertical slice** with primitive meshes (capsule bodies). It is not finished art, animation clips, or a full interconnected map. Those are the next production layer on top of working rules.
 
-1. Install [Godot 4.3+](https://godotengine.org/download)
-2. `git clone https://github.com/XalMorak/veil-of-ash.git`
-3. Open the folder as a project
-4. Press F5
-
-## Next 5 commits
-
-- [ ] Player scene with capsule + spring arm camera
-- [ ] Hurtbox wired to Vitality on both sides
-- [ ] Ash Hollow pawn in the hub
-- [ ] Bonfire rest + soul drop
-- [ ] AnimationTree stub for 8-way locomotion
+## Layout
+```
+scenes/actors/     player, ash_hollow, veil_knight
+scenes/world/      hub, bonfire, soul_pickup
+scenes/ui/         character_select, hud
+scripts/combat/    hitbox, hurtbox, vitality
+scripts/player/    controller, lock-on, 8-way loco machine
+data/characters.json
+DESIGN.md
+```
 
 ## License
-
 MIT © 2026 Xal'Morak
