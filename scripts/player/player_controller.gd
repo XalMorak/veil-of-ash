@@ -15,6 +15,7 @@ const GRAVITY := 22.0
 @onready var heavy_hitbox: Hitbox = $Hitboxes/Heavy
 @onready var hurtbox: Hurtbox = $Hurtbox
 @onready var loco: LocomotionMachine = $LocomotionMachine
+@onready var anim: AnimDriver = $AnimDriver
 @onready var mesh_root: Node3D = $MeshRoot
 
 var _iframe_timer: float = 0.0
@@ -105,9 +106,9 @@ func _handle_actions() -> void:
 	if Input.is_action_just_pressed("dodge"):
 		_try_dodge()
 	elif Input.is_action_just_pressed("light_attack"):
-		_try_attack(light_hitbox, 0.42, _light_cost)
+		_try_attack(light_hitbox, 0.42, _light_cost, false)
 	elif Input.is_action_just_pressed("heavy_attack"):
-		_try_attack(heavy_hitbox, 0.78, _heavy_cost)
+		_try_attack(heavy_hitbox, 0.78, _heavy_cost, true)
 	elif Input.is_action_just_pressed("lock_on"):
 		lock_system.toggle()
 
@@ -122,12 +123,14 @@ func _try_dodge() -> void:
 		dir = Vector3(_move_input.x, 0, _move_input.y).rotated(Vector3.UP, cam_yaw).normalized()
 	velocity = dir * DODGE_SPEED
 
-func _try_attack(box: Hitbox, lock: float, cost: float) -> void:
+func _try_attack(box: Hitbox, lock: float, cost: float, heavy: bool) -> void:
 	if not vitality.spend_stamina(cost):
 		return
 	_action_lock = lock
 	box.activate()
 	get_tree().create_timer(0.16).timeout.connect(box.deactivate)
+	if heavy:
+		anim.play_oneshot("attack_heavy")
 
 func _on_hit(hitbox: Hitbox, damage: float, poise_damage: float) -> void:
 	if _iframe_timer > 0.0:
@@ -141,11 +144,15 @@ func _on_hit(hitbox: Hitbox, damage: float, poise_damage: float) -> void:
 		else:
 			_blocking = false
 	vitality.apply_damage(incoming, poise)
+	loco.hit()
 
 func _on_poise_broken() -> void:
 	_action_lock = 0.9
+	loco.hit()
 
 func _on_died() -> void:
+	loco.die()
+	anim.play_oneshot("death")
 	Game.drop_souls_at(global_position)
 	Game.player_died.emit()
 	await get_tree().create_timer(1.6).timeout
