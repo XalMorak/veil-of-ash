@@ -3,6 +3,7 @@ extends Node3D
 const PLAYER_SCENE := preload("res://scenes/actors/player.tscn")
 const HOLLOW_SCENE := preload("res://scenes/actors/ash_hollow.tscn")
 const KNIGHT_SCENE := preload("res://scenes/actors/veil_knight.tscn")
+const BEHEMOTH_SCENE := preload("res://scenes/actors/cinder_behemoth.tscn")
 const LORD_SCENE := preload("res://scenes/actors/first_ember.tscn")
 const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 
@@ -10,6 +11,7 @@ const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 
 func _ready() -> void:
 	Game.mark_scene("res://scenes/world/ash_causeway.tscn")
+	WorldPalette.apply_to_tree(self)
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
@@ -26,6 +28,9 @@ func _populate() -> void:
 	var k := KNIGHT_SCENE.instantiate() as Node3D
 	add_child(k)
 	k.global_position = Vector3(0, 8, -36)
+	var b := BEHEMOTH_SCENE.instantiate() as Node3D
+	add_child(b)
+	b.global_position = Vector3(0, 6.2, -30)
 	var lord := LORD_SCENE.instantiate() as Node3D
 	add_child(lord)
 	lord.global_position = Vector3(0, 12, -58)

@@ -9,6 +9,7 @@ const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 
 func _ready() -> void:
 	Game.mark_scene("res://scenes/world/hub.tscn")
+	WorldPalette.apply_to_tree(self)
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
