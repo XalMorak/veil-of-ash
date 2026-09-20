@@ -27,9 +27,11 @@ Interconnected vertical hub. No fast travel until two lords are down. Shortcuts 
 Dark metal, wet stone, ember accents. Humble silhouette, heavy material. No neon UI.
 
 ## Production order
-1. Player locomotion + stamina/poise loop (this commit)
+1. Player locomotion + stamina/poise loop
 2. One elite humanoid duel AI
 3. Bonfire rest / soul retrieve
 4. First vertical slice map (Ash Causeway)
-5. Character models + animation set (idle, walk, run, dodge, light, heavy, hit, death)
-6. Lord: The First Ember, 3 phases
+5. **Character silhouettes in-engine (MeshKit) — this commit**
+6. Mixamo body + clip set (idle, walk, run, dodge, light, heavy, hit, death)
+7. Sculpted hero GLBs to the `MODELS.md` budget
+8. Lord: The First Ember, 3 phases (systems already in)

@@ -18,6 +18,15 @@ var _lock: float = 0.0
 func _ready() -> void:
 	add_to_group("enemy")
 	add_to_group("lockable")
+	var mesh_root := get_node_or_null("MeshRoot") as Node3D
+	if mesh_root == null:
+		mesh_root = Node3D.new()
+		mesh_root.name = "MeshRoot"
+		add_child(mesh_root)
+		for child in get_children():
+			if child is CSGPrimitive3D or child is OmniLight3D:
+				child.queue_free()
+	MeshKit.apply_enemy(mesh_root, enemy_id)
 	var roster := Roster.new()
 	roster.load_from_json()
 	for e in roster.enemies:
