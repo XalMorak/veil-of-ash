@@ -3,9 +3,33 @@
 Art law from DESIGN.md: dark metal, wet stone, ember accents.
 Humble silhouette, heavy material. No neon. Ember ≈ sRGB `255, 90, 20`.
 
-This commit starts the hero-art track. In-engine bodies stay MeshKit CSG until
-a GLB is dropped under `assets/characters/<id>/`. Concepts lock the silhouette
-so sculpt / kitbash work does not drift.
+Hero-art track. In-engine bodies stay MeshKit CSG until a GLB lands under
+`assets/characters/<id>/`. Concepts lock the silhouette.
+
+## Concept stills (drop `concept.jpg` in each folder)
+
+| ID | File |
+| --- | --- |
+| Ash Warden | `assets/characters/ash_warden/concept.jpg` |
+| Veil Dancer | `assets/characters/veil_dancer/concept.jpg` |
+| Cinder Priest | `assets/characters/cinder_priest/concept.jpg` |
+| Iron Penitent | `assets/characters/iron_penitent/concept.jpg` |
+| Ash Hollow | `assets/characters/ash_hollow/concept.jpg` |
+| Cinder Acolyte | `assets/characters/cinder_acolyte/concept.jpg` |
+| Veil Shade | `assets/characters/veil_shade/concept.jpg` |
+| Ash Sentinel | `assets/characters/ash_sentinel/concept.jpg` |
+| Veil Knight | `assets/characters/veil_knight/concept.jpg` |
+| Cinder Behemoth | `assets/characters/cinder_behemoth/concept.jpg` |
+| The First Ember | `assets/characters/the_first_ember/concept.jpg` |
+
+Unzip the concept pack at the repo root so those paths fill in.
+
+```
+unzip veil-of-ash-concepts.zip
+git add assets/characters/*/concept.jpg
+git commit -m "Add locked concept stills for 11-character roster"
+git push
+```
 
 ## Locked roster (11)
 
@@ -28,11 +52,8 @@ so sculpt / kitbash work does not drift.
 | `cinder_behemoth` | mini-boss | 2.5 m slag, horizontal torso crack |
 | `the_first_ember` | lord | 3 m crowned king, open chest-furnace |
 
-## Production next (sculpt / kitbash)
-1. Blockout in Blender at real height (see MODELS.md).
-2. Keep Mixamo humanoid for remnants + knight + hollow + sentinel + shade + acolyte.
-3. Behemoth and First Ember may use custom rigs.
-4. Bake ARM (AO / Roughness / Metallic) into one 2k.
-5. Instance GLB under `MeshRoot` and skip `MeshKit.apply_*`.
-
-Do not commit multi-hundred-MB binaries until the slice is locked.
+## Production next
+1. Blockout in Blender at real height (MODELS.md).
+2. Mixamo humanoid for remnants + knight + hollow + sentinel + shade + acolyte.
+3. Custom rig for Behemoth and First Ember.
+4. Bake ARM into one 2k. Instance GLB under `MeshRoot`.
