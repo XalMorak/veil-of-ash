@@ -1,6 +1,6 @@
 # Veil of Ash
 
-3D souls-like — 4 remnants, 4 enemy silhouettes, weapon stats, lock-on, bonfire respawn, soul retrieve, Ash Causeway, First Ember (3 phases).
+3D souls-like — 4 remnants, 7 enemy silhouettes, weapon stats, lock-on, bonfire respawn, soul retrieve, Ash Causeway, First Ember (3 phases).
 
 https://github.com/XalMorak/veil-of-ash
 
@@ -24,3 +24,5 @@ CSG bodies move through `PoseDriver` until Mixamo clips exist.
 In-engine high-read silhouettes live in `scripts/art/mesh_kit.gd`.
 Motion fallback: `scripts/art/pose_driver.gd`.
 Final hero GLB spec: `MODELS.md`. Mixamo names: `ASSETS.md`.
+
+Concept lock: `CONCEPT.md`. New ladder: Hollow / Acolyte / Shade / Sentinel / Knight / Behemoth / Lord.
