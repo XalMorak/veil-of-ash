@@ -6,7 +6,7 @@ This pass ships *readable production silhouettes* in-engine via `MeshKit`.
 They are not final hero meshes. They exist so every remnant and enemy is
 identifiable at 20 meters while Mixamo / sculpted GLBs come in.
 
-## Roster (v0.3 art)
+## Roster (v0.5 art)
 
 ### Playable remnants
 | ID | Silhouette read | Weapon | Height |
@@ -20,6 +20,9 @@ identifiable at 20 meters while Mixamo / sculpted GLBs come in.
 | ID | Tier | Silhouette read |
 | --- | --- | --- |
 | `ash_hollow` | fodder | Hunched, hollow sockets, broken blade |
+| `cinder_acolyte` | fodder | Bandaged hood, handheld coal cage |
+| `veil_shade` | skirmisher | Pale mask, hanging ash body, knives |
+| `ash_sentinel` | soldier | Spear + planted kite, dented helm |
 | `veil_knight` | elite | Taller plate, veil-banner, greatsword guard |
 | `cinder_behemoth` | mini-boss | 2.5 m slag brute, ember crack through torso |
 | `the_first_ember` | lord | 3 m crowned king, hollow chest-flame |
@@ -37,7 +40,8 @@ Target engine import: **glTF 2.0 / GLB**, Y-up, 1 unit = 1 meter.
 | --- | --- | --- |
 | Playable body | 18–28k | 2k albedo / ARM / normal |
 | Elite knight | 16–22k | 2k |
-| Hollow | 6–10k | 1k shared atlas |
+| Hollow / Acolyte | 6–14k | 1k shared atlas |
+| Shade / Sentinel | 10–18k | 1k–2k |
 | Behemoth | 28–40k | 2k |
 | First Ember | 40–55k | 2k + emissive |
 | Weapons | 1.5–4k | 1k shared |
@@ -72,6 +76,9 @@ assets/
     veil_knight/
     cinder_behemoth/
     the_first_ember/
+    ash_sentinel/
+    veil_shade/
+    cinder_acolyte/
   weapons/
   world/
 ```
