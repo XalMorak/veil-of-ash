@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://player001"]
+[gd_scene load_steps=10 format=3 uid="uid://player001"]
 
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_pc"]
 [ext_resource type="Script" path="res://scripts/combat/vitality.gd" id="2_vit"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="5_hurt"]
 [ext_resource type="Script" path="res://scripts/player/locomotion_machine.gd" id="6_loco"]
 [ext_resource type="Script" path="res://scripts/player/anim_driver.gd" id="7_anim"]
+[ext_resource type="Script" path="res://scripts/art/pose_driver.gd" id="8_pose"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.35
@@ -53,6 +54,9 @@ script = ExtResource("6_loco")
 
 [node name="AnimDriver" type="Node" parent="."]
 script = ExtResource("7_anim")
+
+[node name="PoseDriver" type="Node" parent="."]
+script = ExtResource("8_pose")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 16

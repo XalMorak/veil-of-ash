@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://knight001"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy_base.gd" id="1_en"]
+[ext_resource type="Script" path="res://scripts/enemies/veil_knight.gd" id="1_en"]
 [ext_resource type="Script" path="res://scripts/combat/vitality.gd" id="2_vit"]
 [ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="3_hit"]
 [ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurt"]
