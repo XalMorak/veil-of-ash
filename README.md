@@ -15,7 +15,12 @@ Godot 4.3+ → open folder → F5.
 
 Controls: WASD, mouse, LMB/RMB, Space dodge, Shift block, MMB lock-on, E rest, Esc cursor.
 
+## Combat reads (v0.4)
+Enemies wind up, then strike, then recover. Tracking stops on the swing.
+Veil Knight uses light / heavy / thrust tells. Poise break = punish window.
+CSG bodies move through `PoseDriver` until Mixamo clips exist.
+
 ## Art
 In-engine high-read silhouettes live in `scripts/art/mesh_kit.gd`.
-Final hero GLB spec, poly budgets, and folder plan: `MODELS.md`.
-Mixamo clip names: `ASSETS.md`.
+Motion fallback: `scripts/art/pose_driver.gd`.
+Final hero GLB spec: `MODELS.md`. Mixamo names: `ASSETS.md`.

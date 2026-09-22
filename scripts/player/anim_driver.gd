@@ -1,15 +1,13 @@
 class_name AnimDriver
 extends Node
-## Drives AnimationPlayer using LocomotionMachine states.
-## Expected clip names (Mixamo import contract):
-## idle, walk, run, dodge, attack_light, attack_heavy, block, hit, death
+## Mixamo AnimationPlayer first. PoseDriver fallback if clips missing.
 
-@export var player_path: NodePath
 @export var default_fade := 0.12
 
 @onready var loco: LocomotionMachine = get_parent().get_node_or_null("LocomotionMachine")
 
 var _ap: AnimationPlayer
+var _pose: PoseDriver
 var _last := ""
 
 func _ready() -> void:
@@ -17,23 +15,31 @@ func _ready() -> void:
 	_ap = root.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	if _ap == null:
 		_ap = root.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	_pose = root.get_node_or_null("PoseDriver") as PoseDriver
+	if _pose == null:
+		_pose = PoseDriver.new()
+		_pose.name = "PoseDriver"
+		root.add_child(_pose)
 
 func _process(_delta: float) -> void:
-	if _ap == null or loco == null:
+	if loco == null:
 		return
 	var clip := _clip_for(loco.state)
 	if clip == _last:
 		return
-	if not _ap.has_animation(clip):
-		return
-	var fade := 0.04 if clip in ["dodge", "attack_light", "attack_heavy", "hit", "death"] else default_fade
-	_ap.play(clip, fade)
 	_last = clip
+	if _ap and _ap.has_animation(clip):
+		var fade := 0.04 if clip in ["dodge", "attack_light", "attack_heavy", "hit", "death"] else default_fade
+		_ap.play(clip, fade)
+	elif _pose:
+		_pose.set_from_name(clip)
 
 func play_oneshot(clip: String) -> void:
+	_last = clip
 	if _ap and _ap.has_animation(clip):
 		_ap.play(clip, 0.04)
-		_last = clip
+	elif _pose:
+		_pose.set_from_name(clip)
 
 func _clip_for(state: LocomotionMachine.State) -> String:
 	match state:
@@ -49,5 +55,7 @@ func _clip_for(state: LocomotionMachine.State) -> String:
 			return "block"
 		LocomotionMachine.State.HIT:
 			return "hit"
+		LocomotionMachine.State.DEATH:
+			return "death"
 		_:
 			return "idle"

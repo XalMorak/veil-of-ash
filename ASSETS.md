@@ -5,7 +5,7 @@
 `WorldPalette` paints CSG architecture wet-stone / soot.
 See `MODELS.md` for budgets, folders, and the final GLB spec.
 
-No clips yet = MeshKit still renders. `AnimDriver` silently no-ops missing clip names.
+No clips yet = MeshKit still renders. `AnimDriver` falls back to `PoseDriver` so idle/walk/dodge/attacks already read.
 
 ## Mixamo → Godot (hero meshes)
 `AnimDriver` looks for an `AnimationPlayer` under the player and plays these exact clip names:

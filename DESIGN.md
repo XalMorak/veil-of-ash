@@ -31,7 +31,8 @@ Dark metal, wet stone, ember accents. Humble silhouette, heavy material. No neon
 2. One elite humanoid duel AI
 3. Bonfire rest / soul retrieve
 4. First vertical slice map (Ash Causeway)
-5. **Character silhouettes in-engine (MeshKit) — this commit**
-6. Mixamo body + clip set (idle, walk, run, dodge, light, heavy, hit, death)
-7. Sculpted hero GLBs to the `MODELS.md` budget
-8. Lord: The First Ember, 3 phases (systems already in)
+5. Character silhouettes in-engine (MeshKit)
+6. **Readable combat loop + Veil Knight duel AI + PoseDriver — this commit**
+7. Mixamo body + clip set (idle, walk, run, dodge, light, heavy, hit, death)
+8. Sculpted hero GLBs to the `MODELS.md` budget
+9. Lord: The First Ember, 3 phases (systems in; slam after recover)
