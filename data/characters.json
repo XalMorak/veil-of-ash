@@ -68,6 +68,33 @@
       "ai": "aggressive_melee"
     },
     {
+      "id": "cinder_acolyte",
+      "name": "Cinder Acolyte",
+      "tier": "fodder",
+      "hp": 360,
+      "poise": 28,
+      "damage": 70,
+      "ai": "caster_melee"
+    },
+    {
+      "id": "veil_shade",
+      "name": "Veil Shade",
+      "tier": "skirmisher",
+      "hp": 420,
+      "poise": 22,
+      "damage": 110,
+      "ai": "flanker"
+    },
+    {
+      "id": "ash_sentinel",
+      "name": "Ash Sentinel",
+      "tier": "soldier",
+      "hp": 780,
+      "poise": 90,
+      "damage": 140,
+      "ai": "guard_poke"
+    },
+    {
       "id": "veil_knight",
       "name": "Veil Knight",
       "tier": "elite",

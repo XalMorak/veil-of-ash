@@ -44,6 +44,21 @@ Ember only: approx sRGB `255, 90, 20`. Albedo luminance 0.05–0.35. Never pure 
 - Rag cloak, snapped blade.
 - Shared 1k atlas across variants later. Tris 6–10k.
 
+### cinder_acolyte — fodder (~1.70 m)
+- Bandaged hood, burnt robe mass.
+- Handheld iron coal-cage (only emissive) + chain censer.
+- Tris 8–14k.
+
+### veil_shade — skirmisher (~1.68 m)
+- Pale bone mask, empty sockets, no glow.
+- Body reads as hanging ash-veil strips. Twin short knives.
+- Tris 10–16k. Cloth as alpha cards.
+
+### ash_sentinel — soldier (~1.95 m)
+- Dented closed helm, faint ember slit.
+- Planted kite shield + long ash-spear. Gate-guard stance.
+- Tris 12–18k. Mixamo humanoid.
+
 ### veil_knight — elite (~2.05 m)
 - Taller plate than the Warden. Veil-banner on a back pole.
 - Greatsword held in a guard that reads before the swing.
@@ -64,6 +79,6 @@ Ember only: approx sRGB `255, 90, 20`. Albedo luminance 0.05–0.35. Never pure 
 
 ## Import contract
 - glTF 2.0 / GLB, Y-up, 1 unit = 1 meter, root at feet.
-- Mixamo / humanoid skeleton for remnants + knight + hollow.
+- Mixamo / humanoid skeleton for remnants + knight + hollow + sentinel + shade + acolyte.
 - Drop each GLB in `assets/characters/<id>/` then instance under `MeshRoot`.
 - Hide or skip `MeshKit.apply_*` once the real mesh is present.
