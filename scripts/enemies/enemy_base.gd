@@ -39,8 +39,7 @@ func _ready() -> void:
 		for child in get_children():
 			if child is CSGPrimitive3D or child is OmniLight3D:
 				child.queue_free()
-	if not MeshKitExt.apply_enemy(_mesh_root, enemy_id):
-		MeshKit.apply_enemy(_mesh_root, enemy_id)
+	AssetLoader.apply_enemy(_mesh_root, enemy_id)
 	_pose = get_node_or_null("PoseDriver") as PoseDriver
 	if _pose == null:
 		_pose = PoseDriver.new()

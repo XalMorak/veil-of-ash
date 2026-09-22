@@ -42,7 +42,7 @@ func _ready() -> void:
 	heavy_hitbox.poise_damage = float(w.get("poise_heavy", 36))
 	_light_cost = float(w.get("stamina_light", 18))
 	_heavy_cost = float(w.get("stamina_heavy", 34))
-	MeshKit.apply_playable(mesh_root, data.id)
+	AssetLoader.apply_playable(mesh_root, data.id)
 	vitality.rest_full()
 	vitality.died.connect(_on_died)
 	vitality.poise_broken.connect(_on_poise_broken)
