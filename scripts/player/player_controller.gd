@@ -128,10 +128,15 @@ func _try_attack(box: Hitbox, lock: float, cost: float, heavy: bool) -> void:
 	if not vitality.spend_stamina(cost):
 		return
 	_action_lock = lock
-	box.activate()
-	get_tree().create_timer(0.16).timeout.connect(box.deactivate)
-	if heavy:
-		anim.play_oneshot("attack_heavy")
+	anim.play_oneshot("attack_heavy" if heavy else "attack_light")
+	var wind := 0.28 if heavy else 0.12
+	var active := 0.18 if heavy else 0.14
+	get_tree().create_timer(wind).timeout.connect(func() -> void:
+		if vitality.dead:
+			return
+		box.activate()
+		get_tree().create_timer(active).timeout.connect(box.deactivate)
+	)
 
 func _on_hit(hitbox: Hitbox, damage: float, poise_damage: float) -> void:
 	if _iframe_timer > 0.0:
