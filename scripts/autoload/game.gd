@@ -39,6 +39,43 @@ var flags: Dictionary = {}
 var paused: bool = false
 var objective: String = "Rest at the hearth, then enter the Cinder Crypt."
 var run_active: bool = false
+var mouse_sensitivity: float = 0.0025
+var fullscreen: bool = true
+
+func _ready() -> void:
+	_bind_pad()
+
+func _bind_pad() -> void:
+	_joy_button("light_attack", JOY_BUTTON_RIGHT_SHOULDER)
+	_joy_button("heavy_attack", JOY_BUTTON_RIGHT_STICK)
+	_joy_button("dodge", JOY_BUTTON_B)
+	_joy_button("block", JOY_BUTTON_LEFT_SHOULDER)
+	_joy_button("lock_on", JOY_BUTTON_RIGHT_STICK)
+	_joy_button("interact", JOY_BUTTON_A)
+	_joy_button("ui_cancel", JOY_BUTTON_START)
+	var heal := InputEventKey.new()
+	heal.physical_keycode = KEY_R
+	if not InputMap.has_action("flask"):
+		InputMap.add_action("flask")
+	InputMap.action_add_event("flask", heal)
+	_joy_button("flask", JOY_BUTTON_X)
+	_joy_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
+	_joy_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
+	_joy_axis("move_forward", JOY_AXIS_LEFT_Y, -1.0)
+	_joy_axis("move_back", JOY_AXIS_LEFT_Y, 1.0)
+
+func _joy_axis(action: String, axis: JoyAxis, direction: float) -> void:
+	var ev := InputEventJoypadMotion.new()
+	ev.axis = axis
+	ev.axis_value = direction
+	InputMap.action_add_event(action, ev)
+
+func _joy_button(action: String, button: JoyButton) -> void:
+	if not InputMap.has_action(action):
+		InputMap.add_action(action)
+	var ev := InputEventJoypadButton.new()
+	ev.button_index = button
+	InputMap.action_add_event(action, ev)
 
 func new_game() -> void:
 	souls = 0
@@ -138,10 +175,6 @@ func rest_at(bonfire_id: String) -> void:
 	bonfire_rested.emit(bonfire_id)
 	save_game()
 
-func refill_flask() -> void:
-	flask_charges = flask_max
-	flask_changed.emit(flask_charges, flask_max)
-
 func try_drink() -> bool:
 	if flask_charges <= 0:
 		toast("Flask empty. Rest at a bonfire.")
@@ -229,18 +262,18 @@ func damage_multiplier(weapon_class: String) -> float:
 func apply_build(player: Node) -> void:
 	if player == null or not player.has_node("Vitality"):
 		return
-	var vitality: Vitality = player.get_node("Vitality")
-	var roster := Roster.new()
+	var vitality = player.get_node("Vitality")
+	var roster = load("res://scripts/characters/roster.gd").new()
 	roster.load_from_json()
-	var data := roster.get_playable(selected_character_id)
+	var data = roster.get_playable(selected_character_id)
 	vitality.max_hp = scaled_hp(float(data.hp))
 	vitality.max_stamina = scaled_stamina(data.stamina)
 	vitality.max_poise = data.poise + float(vigor - 10) * 2.0
-	var w := WeaponDB.for_character(data.starting_weapon)
+	var w = load("res://scripts/combat/weapon_db.gd").for_character(data.starting_weapon)
 	var mult := damage_multiplier(str(w.get("class", "straight_sword")))
 	if player.has_node("Hitboxes/Light"):
-		var light: Hitbox = player.get_node("Hitboxes/Light")
-		var heavy: Hitbox = player.get_node("Hitboxes/Heavy")
+		var light = player.get_node("Hitboxes/Light")
+		var heavy = player.get_node("Hitboxes/Heavy")
 		light.damage = float(w.get("light", 110)) * mult
 		light.poise_damage = float(w.get("poise_light", 18))
 		heavy.damage = float(w.get("heavy", 175)) * mult
