@@ -61,6 +61,8 @@ func _ready() -> void:
 	hitbox.owner_group = "enemy"
 
 func _physics_process(delta: float) -> void:
+	if Game.paused:
+		return
 	_timer = max(_timer - delta, 0.0)
 	_player = get_tree().get_first_node_in_group("player") as Node3D
 	if not is_on_floor():
@@ -178,5 +180,6 @@ func _on_died() -> void:
 	hitbox.deactivate()
 	_pose_name("death")
 	Game.add_souls(soul_reward)
+	Game.notify_kill(enemy_id)
 	await get_tree().create_timer(0.9).timeout
 	queue_free()
