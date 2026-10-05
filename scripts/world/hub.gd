@@ -10,6 +10,8 @@ const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 func _ready() -> void:
 	Game.mark_scene("res://scenes/world/hub.tscn")
 	WorldPalette.apply_to_tree(self)
+	Atmosphere.apply(self)
+	_dress_hearth()
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
@@ -33,6 +35,16 @@ func _ready() -> void:
 		Game.set_objective("Cross the far arch. The First Ember waits on the Causeway.")
 	else:
 		Game.set_objective("Take the side arch into the Cinder Crypt. Break the Behemoth.")
+
+func _dress_hearth() -> void:
+	Atmosphere.fire_ring(self, Vector3.ZERO)
+	Atmosphere.tree(self, Vector3(-11.5, 0, 3.5))
+	Atmosphere.tree(self, Vector3(13, 0, 6))
+	for i in 4:
+		var z := -8.0 - float(i) * 5.5
+		Atmosphere.arch(self, Vector3(-9.5, 0, z), 0.95)
+		Atmosphere.arch(self, Vector3(9.5, 0, z), 0.85)
+	Atmosphere.arch(self, Vector3(0, 0, -27), 1.45)
 
 func _add_crypt_gate() -> void:
 	var gate := preload("res://scenes/world/gate.tscn").instantiate() as WorldGate

@@ -13,6 +13,9 @@ func _ready() -> void:
 	Game.mark_scene("res://scenes/world/cinder_crypt.tscn")
 	Game.set_objective("Break the Cinder Behemoth. The Causeway stays sealed until it falls.")
 	WorldPalette.apply_to_tree(self)
+	Atmosphere.apply(self)
+	Atmosphere.colonnade(self, -8.2, -2.0, -40.0, 6.0)
+	Atmosphere.colonnade(self, 8.2, -2.0, -40.0, 6.0)
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position

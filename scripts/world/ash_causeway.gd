@@ -15,6 +15,10 @@ func _ready() -> void:
 	Game.mark_scene("res://scenes/world/ash_causeway.tscn")
 	Game.set_objective("Climb the causeway. Extinguish the First Ember.")
 	WorldPalette.apply_to_tree(self)
+	Atmosphere.apply(self)
+	Atmosphere.arch(self, Vector3(0, 0, -6), 1.3)
+	Atmosphere.arch(self, Vector3(0, 5.2, -30), 1.15)
+	Atmosphere.tree(self, Vector3(-8, 0, 4))
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
