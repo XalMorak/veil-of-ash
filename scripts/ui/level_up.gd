@@ -47,7 +47,7 @@ func _build() -> void:
 		_labels[stat] = name
 		var btn := Button.new()
 		btn.text = "Raise"
-		var key := stat
+		var key: String = str(stat)
 		btn.pressed.connect(func() -> void:
 			if Game.try_level(key):
 				_apply_player()
