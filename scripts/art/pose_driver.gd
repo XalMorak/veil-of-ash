@@ -73,7 +73,7 @@ func _process(delta: float) -> void:
 			t.basis = t.basis.rotated(Vector3.RIGHT, -0.08 * a)
 			t.basis = t.basis.rotated(Vector3.FORWARD, sin(_t * 12.0) * 0.09 * a)
 		Pose.DODGE:
-		var k := clampf(_t / 0.28, 0.0, 1.0)
+			var k := clampf(_t / 0.28, 0.0, 1.0)
 			t.origin += Vector3(0, 0.08 * sin(k * PI), -0.35 * sin(k * PI)) * a
 			t.basis = t.basis.rotated(Vector3.RIGHT, 0.35 * sin(k * PI) * a)
 		Pose.WINDUP:
