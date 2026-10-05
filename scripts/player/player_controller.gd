@@ -43,7 +43,7 @@ func _ready() -> void:
 	_light_cost = float(w.get("stamina_light", 18))
 	_heavy_cost = float(w.get("stamina_heavy", 34))
 	AssetLoader.apply_playable(mesh_root, data.id)
-	vitality.rest_full()
+	Game.apply_build(self)
 	vitality.died.connect(_on_died)
 	vitality.poise_broken.connect(_on_poise_broken)
 	hurtbox.owner_group = "player"
@@ -52,14 +52,23 @@ func _ready() -> void:
 	heavy_hitbox.owner_group = "player"
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Game.toggle_pause()
+		_mouse_captured = not Game.paused
+		return
+	if Game.paused:
+		return
 	if event is InputEventMouseMotion and _mouse_captured and not lock_system.has_target():
 		camera_pivot.rotate_y(-event.relative.x * 0.0025)
 		spring_arm.rotation.x = clamp(spring_arm.rotation.x - event.relative.y * 0.0025, -0.9, 0.45)
-	if event.is_action_pressed("ui_cancel"):
-		_mouse_captured = not _mouse_captured
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if _mouse_captured else Input.MOUSE_MODE_VISIBLE
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		_try_flask()
 
 func _physics_process(delta: float) -> void:
+	if Game.paused or vitality.dead:
+		if vitality.dead:
+			velocity = Vector3.ZERO
+		return
 	_iframe_timer = max(_iframe_timer - delta, 0.0)
 	_action_lock = max(_action_lock - delta, 0.0)
 	hurtbox.invulnerable = _iframe_timer > 0.0
@@ -112,6 +121,19 @@ func _handle_actions() -> void:
 		_try_attack(heavy_hitbox, 0.78, _heavy_cost, true)
 	elif Input.is_action_just_pressed("lock_on"):
 		lock_system.toggle()
+
+func _try_flask() -> void:
+	if vitality.dead or _action_lock > 0.0:
+		return
+	if vitality.hp >= vitality.max_hp - 1.0:
+		Game.toast("Already whole.")
+		return
+	if not Game.try_drink():
+		return
+	_action_lock = 0.45
+	anim.play_oneshot("idle")
+	vitality.hp = min(vitality.hp + vitality.max_hp * 0.42, vitality.max_hp)
+	vitality.hp_changed.emit(vitality.hp, vitality.max_hp)
 
 func _try_dodge() -> void:
 	if not vitality.spend_stamina(22.0):
