@@ -13,24 +13,35 @@ func _ready() -> void:
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
 	player.global_position = spawn.global_position
-	var hud := preload("res://scenes/ui/hud.tscn").instantiate()
-	add_child(hud)
-	_spawn_pack()
+	add_child(preload("res://scenes/ui/hud.tscn").instantiate())
+	for offset in [Vector3(-6, 1, -8), Vector3(5, 1, -10), Vector3(0, 1, -14)]:
+		var hollow := HOLLOW_SCENE.instantiate() as Node3D
+		add_child(hollow)
+		hollow.global_position = offset
+	var knight := KNIGHT_SCENE.instantiate() as Node3D
+	add_child(knight)
+	knight.global_position = Vector3(8, 1, -18)
 	if Game.has_dropped_souls:
-		add_child(SOUL_SCENE.instantiate())
-	Game.bonfire_rested.connect(_on_rest)
+		var gem := SOUL_SCENE.instantiate() as Node3D
+		add_child(gem)
+		gem.global_position = Game.dropped_souls_pos
+	var causeway: WorldGate = $ToCauseway
+	causeway.requires_flag = "behemoth_slain"
+	causeway.locked_message = "The Causeway is sealed. The Behemoth still burns in the Crypt."
+	_add_crypt_gate()
+	if Game.has_flag("behemoth_slain"):
+		Game.set_objective("Cross the far arch. The First Ember waits on the Causeway.")
+	else:
+		Game.set_objective("Take the side arch into the Cinder Crypt. Break the Behemoth.")
 
-func _spawn_pack() -> void:
-	for n in get_tree().get_nodes_in_group("enemy"):
-		n.queue_free()
-	var spots := [Vector3(8, 1, -6), Vector3(11, 1, -2), Vector3(-9, 1, -8)]
-	for s in spots:
-		var h := HOLLOW_SCENE.instantiate() as Node3D
-		add_child(h)
-		h.global_position = s
-	var k := KNIGHT_SCENE.instantiate() as Node3D
-	add_child(k)
-	k.global_position = Vector3(0, 1, -16)
-
-func _on_rest(_id: String) -> void:
-	_spawn_pack()
+func _add_crypt_gate() -> void:
+	var gate := preload("res://scenes/world/gate.tscn").instantiate() as WorldGate
+	add_child(gate)
+	gate.global_position = Vector3(18, 0, -6)
+	gate.target_scene = Game.CRYPT_PATH
+	gate.requires_flag = ""
+	var mark := Label3D.new()
+	mark.text = "Cinder Crypt"
+	mark.font_size = 48
+	mark.position = Vector3(0, 4.6, 0)
+	gate.add_child(mark)

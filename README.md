@@ -1,28 +1,24 @@
 # Veil of Ash
 
-3D souls-like — 4 remnants, 7 enemy silhouettes, weapon stats, lock-on, bonfire respawn, soul retrieve, Ash Causeway, First Ember (3 phases).
+Short 3D souls-like. Four remnants, a locked causeway, a crypt mini-boss, and the First Ember.
 
 https://github.com/XalMorak/veil-of-ash
 
 ## Play
-Godot 4.3+ → open folder → F5.
+Godot 4.3+ → open this folder → F5.
 
-1. Choose a remnant (each has its own MeshKit silhouette)
-2. Hub: Hollows + Knight. Ember pit = rest (E). Rest respawns enemies.
-3. Arch at the far end → **Ash Causeway** (ramp, bridge, upper court)
-4. Upper court: **The First Ember** — phase 2 slam, phase 3 faster
-5. Die → souls drop. Touch blue gem. Die again first → lost. Respawn last scene.
+1. New Game, pick a remnant.
+2. Ember Hearth: hollows and a knight. Bonfire (E) refills the flask and opens level-up. Rising reloads the area.
+3. Side arch → **Cinder Crypt**. Slay the Behemoth. Flask shard on the left.
+4. Far arch unlocks → **Ash Causeway**. Climb to the First Ember (3 phases).
+5. Die and your souls drop. Touch the blue gem. Die again before that and they are lost.
+6. Continue on the title screen resumes the last bonfire area.
 
-Controls: WASD, mouse, LMB/RMB, Space dodge, Shift block, MMB lock-on, E rest, Esc cursor.
+## Controls
+WASD move, mouse look, LMB light, RMB heavy, Space dodge, Shift block, MMB lock-on, R flask, E rest, Esc pause.
 
-## Combat reads (v0.4)
-Enemies wind up, then strike, then recover. Tracking stops on the swing.
-Veil Knight uses light / heavy / thrust tells. Poise break = punish window.
-CSG bodies move through `PoseDriver` until Mixamo clips exist.
+## Build
+Vigor raises HP, Endurance raises stamina, Strength and Dexterity raise weapon damage, Ember raises both. Cost is `80 + level * 40` souls.
 
 ## Art
-In-engine high-read silhouettes live in `scripts/art/mesh_kit.gd`.
-Motion fallback: `scripts/art/pose_driver.gd`.
-Final hero GLB spec: `MODELS.md`. Mixamo names: `ASSETS.md`.
-
-Concept lock: `CONCEPT.md`. New ladder: Hollow / Acolyte / Shade / Sentinel / Knight / Behemoth / Lord.
+Silhouettes are generated in `scripts/art/mesh_kit.gd` until Mixamo / GLB heroes land. See `MODELS.md` and `ASSETS.md`.

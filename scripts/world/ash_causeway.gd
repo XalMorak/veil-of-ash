@@ -6,7 +6,6 @@ const ACOLYTE_SCENE := preload("res://scenes/actors/cinder_acolyte.tscn")
 const SHADE_SCENE := preload("res://scenes/actors/veil_shade.tscn")
 const SENTINEL_SCENE := preload("res://scenes/actors/ash_sentinel.tscn")
 const KNIGHT_SCENE := preload("res://scenes/actors/veil_knight.tscn")
-const BEHEMOTH_SCENE := preload("res://scenes/actors/cinder_behemoth.tscn")
 const LORD_SCENE := preload("res://scenes/actors/first_ember.tscn")
 const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 
@@ -14,6 +13,7 @@ const SOUL_SCENE := preload("res://scenes/world/soul_pickup.tscn")
 
 func _ready() -> void:
 	Game.mark_scene("res://scenes/world/ash_causeway.tscn")
+	Game.set_objective("Climb the causeway. Extinguish the First Ember.")
 	WorldPalette.apply_to_tree(self)
 	var player := PLAYER_SCENE.instantiate() as Node3D
 	add_child(player)
@@ -21,10 +21,12 @@ func _ready() -> void:
 	add_child(preload("res://scenes/ui/hud.tscn").instantiate())
 	_populate()
 	if Game.has_dropped_souls:
-		add_child(SOUL_SCENE.instantiate())
+		var gem := SOUL_SCENE.instantiate() as Node3D
+		add_child(gem)
+		gem.global_position = Game.dropped_souls_pos
 
 func _populate() -> void:
-	for s in [Vector3(4, 1, -8), Vector3(-5, 1, -14), Vector3(10, 6, -22)]:
+	for s in [Vector3(4, 1, -8), Vector3(-5, 1, -14)]:
 		var h := HOLLOW_SCENE.instantiate() as Node3D
 		add_child(h)
 		h.global_position = s
@@ -40,9 +42,7 @@ func _populate() -> void:
 	var k := KNIGHT_SCENE.instantiate() as Node3D
 	add_child(k)
 	k.global_position = Vector3(0, 8, -36)
-	var b := BEHEMOTH_SCENE.instantiate() as Node3D
-	add_child(b)
-	b.global_position = Vector3(0, 6.2, -30)
-	var lord := LORD_SCENE.instantiate() as Node3D
-	add_child(lord)
-	lord.global_position = Vector3(0, 12, -58)
+	if not Game.has_flag("ember_slain"):
+		var lord := LORD_SCENE.instantiate() as Node3D
+		add_child(lord)
+		lord.global_position = Vector3(0, 12, -58)
