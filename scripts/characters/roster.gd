@@ -16,7 +16,10 @@ func load_from_json(path: String = "res://data/characters.json") -> void:
 	playable.clear()
 	for entry in parsed.get("playable", []):
 		playable.append(CharacterData.from_dict(entry))
-	enemies = parsed.get("enemies", [])
+	enemies.clear()
+	for entry in parsed.get("enemies", []):
+		if typeof(entry) == TYPE_DICTIONARY:
+			enemies.append(entry)
 
 func get_playable(id: String) -> CharacterData:
 	for c in playable:
